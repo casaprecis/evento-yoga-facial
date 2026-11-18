@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evento yoga facial · Inscripción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Noto+Serif+Display:ital,wdth,wght@0,62.5,300;0,62.5,600;1,62.5,600&family=Noto+Serif:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--olive:#5a5a35;--olive-d:#45452a;--cream:#f0e4d3;--line:rgba(90,90,53,.3);--paper:rgba(255,255,255,.38)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#e6d8c3}
+body{font-family:"Noto Serif",Georgia,serif;color:var(--olive-d);min-height:100vh;display:flex;justify-content:center}
+.wrap{width:100%;max-width:544px;background:var(--cream);min-height:100vh;box-shadow:0 0 60px rgba(69,69,42,.12)}
+
+.disp{font-family:"Noto Serif Display",serif;font-stretch:62.5%;font-weight:600;color:var(--olive);text-transform:uppercase}
+.script{font-family:"Allura",cursive;color:var(--olive);line-height:1}
+label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--olive);font-weight:600;margin-bottom:5px}
+input{width:100%;background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:12px;color:var(--olive-d);font:15px "Noto Serif",serif;outline:none;transition:border-color .2s,background .2s}
+input::placeholder{color:rgba(69,69,42,.38)}
+input:focus{border-color:var(--olive);background:rgba(255,255,255,.62)}
+.btn{display:inline-block;border:0;border-radius:999px;padding:15px 22px;background:var(--olive);color:var(--cream);font:700 13px "Noto Serif",serif;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:transform .15s,opacity .2s,background .2s}
+.btn:hover{transform:translateY(-1px);background:var(--olive-d)}
+.btn:disabled{opacity:.5;cursor:default;transform:none}
+.btn.ghost{background:transparent;color:var(--olive);border:1px solid var(--olive)}
+.btn.ghost:hover{background:rgba(90,90,53,.08)}
+.err{color:#9a4a2e;font-size:13px;text-align:center;min-height:18px}
+.small{font-size:12px;opacity:.7}
+footer{text-align:center;padding:28px 0 34px}
+footer img{width:160px;opacity:.95}
+
+main{padding:44px 28px 6px;text-align:center}
+.cuposMini{font-family:"Noto Serif Display",serif;font-stretch:62.5%;font-weight:600;font-size:22px;color:var(--olive);letter-spacing:.04em;text-transform:uppercase}
+.frase{padding-bottom:48px}
+.hola{font-size:46px;margin:6px 0 12px}
+.intro{font-size:14.5px;line-height:1.65;margin:0 auto 24px;max-width:400px}
+.intro strong{font-weight:700}
+.info{display:grid;grid-template-columns:1fr 1px 1fr;gap:16px;align-items:center;max-width:400px;margin:0 auto 22px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.info i{display:block;width:1px;height:100%;background:var(--line)}
+.info b{display:block;font-size:13px;letter-spacing:.06em;color:var(--olive)}
+.info span{display:block;font-size:13px;margin-top:3px}
+.cupos{font-size:38px;line-height:1.05;margin:4px 0}
+.bar{height:3px;background:rgba(90,90,53,.15);border-radius:3px;overflow:hidden;margin:12px auto 6px;max-width:220px}
+.bar i{display:block;height:100%;background:var(--olive);width:0;transition:width .8s ease}
+.precio{display:none;font-size:14px;margin-top:8px}
+form{text-align:left;display:grid;gap:13px;max-width:420px;margin:26px auto 0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.45;margin-top:2px;text-transform:none;letter-spacing:0;font-weight:400;color:inherit}
+.check input{width:16px;height:16px;margin-top:2px;accent-color:#5a5a35;flex:none}
+form .btn{width:100%;margin-top:4px}
+.estado{display:none;max-width:400px;margin:26px auto 0}
+.estado .script{font-size:46px;margin:12px 0 10px}
+.estado p{font-size:14.5px;line-height:1.65;margin-bottom:10px}
+.tick{width:66px;height:66px;display:block;margin:0 auto}
+.frase{margin:38px 34px 0;text-align:center}
+.frase .sep{width:1px;height:34px;background:var(--line);margin:0 auto 18px}
+.frase p{font-family:"Noto Serif Display",serif;font-stretch:62.5%;font-style:italic;font-weight:600;font-size:25px;line-height:1.22;color:var(--olive)}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<main>
+  <div class="script hola">Hola, qué bonito tenerte aquí</div>
+  <p class="intro">Gracias por querer hacer parte de este <strong>ritual de autocuidado</strong> antes de terminar el día. Déjanos tus datos y te escribimos por <strong>WhatsApp</strong> con el link de pago para asegurar tu lugar.</p>
+
+  <div class="cuposMini" id="cuposTxt">Quedan 12 de 12 cupos</div>
+  <div class="bar"><i id="bar"></i></div>
+  <div class="small" id="live" style="display:none"></div>
+  <div class="precio" id="precio">Inversión: <b id="precioVal"></b></div>
+
+  <form id="f" novalidate>
+    <div class="row">
+      <div><label for="nombre">Nombre</label><input id="nombre" name="nombre" autocomplete="given-name"></div>
+      <div><label for="apellido">Apellido</label><input id="apellido" name="apellido" autocomplete="family-name"></div>
+    </div>
+    <div><label for="whatsapp">WhatsApp</label><input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="300 123 4567"></div>
+    <div><label for="correo">Correo</label><input id="correo" name="correo" type="email" autocomplete="email" placeholder="tu@correo.com"></div>
+    <div><label for="instagram">Instagram (opcional)</label><input id="instagram" name="instagram" placeholder="@usuario"></div>
+    <label class="check"><input type="checkbox" id="ok"> Autorizo a Casa Précis y Sol de Flor a usar mis datos para contactarme sobre esta clase.</label>
+    <div class="err" id="err"></div>
+    <button class="btn" id="btn" type="submit">Quiero mi cupo</button>
+  </form>
+
+  <div class="estado" id="paso-ok">
+    <svg class="tick" viewBox="0 0 64 64" fill="none" stroke="#5a5a35" stroke-width="1.3" stroke-linecap="round"><circle cx="32" cy="32" r="30"/><path d="M32 47V24M32 24c-6-1-10-6-10-12 6 1 10 6 10 12zm0 0c6-1 10-6 10-12-6 1-10 6-10 12zM32 37c-5 0-9-3-10-8 5 0 9 3 10 8zm0 0c5 0 9-3 10-8-5 0-9 3-10 8z"/></svg>
+    <div class="script">¡Ya estás inscrita!</div>
+    <p>Tu cupo queda separado. En breve te escribimos por WhatsApp con el link de pago para confirmarlo.</p>
+    <p class="small">Nos vemos el miércoles 25 a las 6:00 p. m. en Casa Précis 79.</p>
+  </div>
+  <div class="estado" id="paso-agotado">
+    <div class="script">Cupos agotados</div>
+    <p>Esta vez los 12 lugares ya tienen dueña. Síguenos en <strong>@soldefloroficial</strong> y en Casa Précis para enterarte de la próxima cita.</p>
+  </div>
+</main>
+<div class="frase"><div class="sep"></div><p>Un momento para ti nunca será un gasto, sino una inversión en tu futuro.</p></div>
+</div>
+<script>
+/* ===== CONFIGURACIÓN ===== */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxWySfeEnX0TAQKQmqVCmBI5m5K0SmP_RfUdPpiwSpLuRRUVZgpKppQoSXNGuQmWgxpjQ/exec";   // ← URL de la app web de Apps Script (termina en /exec). La misma en las dos páginas.
+const CUPOS = 12;
+const PRECIO = "";       // ej: "$120.000" — vacío = no se muestra
+/* ========================= */
+
+const $ = id => document.getElementById(id);
+const MODO_PRUEBA = location.protocol === "file:" || /[?&]demo/.test(location.search);
+const esc = t => String(t ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function api(params){
+  return new Promise((res, rej) => {
+    if (!SCRIPT_URL) return MODO_PRUEBA ? res(demo(params)) : rej(new Error("sin-config"));
+    const cb = "cb" + Date.now() + Math.floor(Math.random()*1e4);
+    const s = document.createElement("script");
+    const t = setTimeout(() => { cleanup(); rej(new Error("timeout")); }, 15000);
+    function cleanup(){ clearTimeout(t); delete window[cb]; s.remove(); }
+    window[cb] = d => { cleanup(); res(d); };
+    s.onerror = () => { cleanup(); rej(new Error("red")); };
+    s.src = SCRIPT_URL + "?" + new URLSearchParams({...params, callback: cb, t: Date.now()});
+    document.body.appendChild(s);
+  });
+}
+/* Modo vista previa: solo al abrir el archivo en el computador */
+function demoLoad(){ try { return JSON.parse(localStorage.getItem("aflor_demo2") || "[]"); } catch(e){ return []; } }
+function demoSave(l){ try { localStorage.setItem("aflor_demo2", JSON.stringify(l)); } catch(e){} }
+function demo(p){
+  const CUP = 12, l = demoLoad();
+  if (p.accion === "inscribir") {
+    if (l.length >= CUP) return {ok:false, error:"agotado", quedan:0};
+    let tel = String(p.whatsapp).replace(/\D/g,""); if (tel.length===10 && tel[0]==="3") tel = "57"+tel;
+    if (l.some(x => x.whatsapp === tel)) return {ok:false, error:"repetido", quedan:CUP-l.length};
+    const d = new Date();
+    l.push({nombre:p.nombre, apellido:p.apellido, whatsapp:tel, correo:p.correo, instagram:p.instagram, pago:"Pendiente",
+      fecha: d.toLocaleDateString("es-CO",{day:"2-digit",month:"2-digit"})+" "+d.toLocaleTimeString("es-CO",{hour:"numeric",minute:"2-digit"})});
+    demoSave(l); return {ok:true, quedan:CUP-l.length};
+  }
+  if (p.accion === "lista" || p.accion === "pago") {
+    if (p.clave !== "aflor2511") return {ok:false, error:"clave"};
+    if (p.accion === "pago") { const i = p.fila - 2; if (l[i]) { l[i].pago = p.estado; demoSave(l); } }
+    return {ok:true, cupos:CUP, quedan:CUP-l.length, lista:l.map((x,i)=>({...x, fila:i+2}))};
+  }
+  return {quedan: CUP - l.length};
+}
+
+if (PRECIO) { $("precio").style.display = "block"; $("precioVal").textContent = PRECIO; }
+let inscrita = false;
+function pintar(q){
+  q = Math.max(0, Math.min(CUPOS, Number(q)));
+  $("cuposTxt").textContent = q === 0 ? "¡Cupos agotados!" : (q === 1 ? "¡Queda 1 cupo!" : "Quedan " + q + " de " + CUPOS + " cupos");
+  $("bar").style.width = ((CUPOS - q) / CUPOS * 100) + "%";
+  if (q === 0 && !inscrita) { $("f").style.display = "none"; $("paso-agotado").style.display = "block"; }
+}
+async function refrescar(){
+  try { const d = await api({}); pintar(d.quedan); $("live").textContent = "Cupos en tiempo real"; }
+  catch(e){ $("live").textContent = "Actualizando cupos…"; }
+}
+if (!SCRIPT_URL && !MODO_PRUEBA) {
+  $("cuposTxt").textContent = "Inscripciones abren muy pronto";
+  $("btn").disabled = true;
+} else { refrescar(); setInterval(refrescar, 15000); }
+
+$("f").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const f = ev.target, err = $("err");
+  const d = { accion:"inscribir", nombre:f.nombre.value.trim(), apellido:f.apellido.value.trim(),
+    whatsapp:f.whatsapp.value.trim(), correo:f.correo.value.trim(), instagram:f.instagram.value.trim() };
+  if (!d.nombre || !d.apellido) return err.textContent = "Cuéntanos tu nombre y apellido.";
+  if (d.whatsapp.replace(/\D/g,"").length < 10) return err.textContent = "Revisa tu número de WhatsApp (mínimo 10 dígitos).";
+  if (!/^\S+@\S+\.\S+$/.test(d.correo)) return err.textContent = "Revisa tu correo.";
+  if (!$("ok").checked) return err.textContent = "Necesitamos tu autorización para escribirte.";
+  err.textContent = ""; $("btn").disabled = true; $("btn").textContent = "Separando tu cupo…";
+  try {
+    const r = await api(d);
+    if (r.ok) { inscrita = true; f.style.display = "none"; $("paso-ok").style.display = "block"; pintar(r.quedan); $("paso-ok").scrollIntoView({behavior:"smooth", block:"center"}); }
+    else if (r.error === "agotado") pintar(0);
+    else if (r.error === "repetido") { err.textContent = "Este WhatsApp ya está inscrito. Te escribimos pronto."; pintar(r.quedan); }
+    else err.textContent = "Revisa tus datos e inténtalo de nuevo.";
+  } catch(e) { err.textContent = "No pudimos conectar. Revisa tu internet e inténtalo otra vez."; }
+  $("btn").disabled = false; $("btn").textContent = "Quiero mi cupo";
+});
+</script>
+</body>
+</html>
