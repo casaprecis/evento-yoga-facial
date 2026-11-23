@@ -39,6 +39,8 @@ main{padding:44px 28px 6px;text-align:center}
 .info i{display:block;width:1px;height:100%;background:var(--line)}
 .info b{display:block;font-size:13px;letter-spacing:.06em;color:var(--olive)}
 .info span{display:block;font-size:13px;margin-top:3px}
+.urg{animation:pulso 1.8s ease-in-out infinite}
+@keyframes pulso{0%,100%{opacity:1}50%{opacity:.55}}
 .cupos{font-size:38px;line-height:1.05;margin:4px 0}
 .bar{height:3px;background:rgba(90,90,53,.15);border-radius:3px;overflow:hidden;margin:12px auto 6px;max-width:220px}
 .bar i{display:block;height:100%;background:var(--olive);width:0;transition:width .8s ease}
@@ -64,7 +66,8 @@ form .btn{width:100%;margin-top:4px}
   <div class="script hola">Hola, qué bonito tenerte aquí</div>
   <p class="intro">Gracias por querer hacer parte de este <strong>ritual de autocuidado</strong> antes de terminar el día. Déjanos tus datos y te escribimos por <strong>WhatsApp</strong> con el link de pago para asegurar tu lugar.</p>
 
-  <div class="cuposMini" id="cuposTxt">Quedan 12 de 12 cupos</div>
+  <div class="cuposMini urg" id="cuposTxt">¡Solo quedan 5 cupos!</div>
+  <div class="small" id="urgSub" style="margin-top:4px">Los últimos lugares se están yendo rápido</div>
   <div class="bar"><i id="bar"></i></div>
   <div class="small" id="live" style="display:none"></div>
   <div class="precio" id="precio">Inversión: <b id="precioVal"></b></div>
@@ -100,6 +103,7 @@ form .btn{width:100%;margin-top:4px}
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxWySfeEnX0TAQKQmqVCmBI5m5K0SmP_RfUdPpiwSpLuRRUVZgpKppQoSXNGuQmWgxpjQ/exec";   // ← URL de la app web de Apps Script (termina en /exec). La misma en las dos páginas.
 const CUPOS = 12;
 const PRECIO = "$170.000";       // ej: "$120.000" — vacío = no se muestra
+const MOSTRAR_MAX = 5;            // la página nunca muestra más de este número de cupos libres
 /* ========================= */
 
 const $ = id => document.getElementById(id);
@@ -144,8 +148,10 @@ if (PRECIO) { $("precio").style.display = "block"; $("precioVal").textContent = 
 let inscrita = false;
 function pintar(q){
   q = Math.max(0, Math.min(CUPOS, Number(q)));
-  $("cuposTxt").textContent = q === 0 ? "¡Cupos agotados!" : (q === 1 ? "¡Queda 1 cupo!" : "Quedan " + q + " de " + CUPOS + " cupos");
-  $("bar").style.width = ((CUPOS - q) / CUPOS * 100) + "%";
+  const v = Math.min(q, MOSTRAR_MAX);
+  $("cuposTxt").textContent = v === 0 ? "¡Cupos agotados!" : (v === 1 ? "¡Queda solo 1 cupo!" : "¡Solo quedan " + v + " cupos!");
+  $("urgSub").style.display = v === 0 ? "none" : "block";
+  $("bar").style.width = ((CUPOS - v) / CUPOS * 100) + "%";
   if (q === 0 && !inscrita) { $("f").style.display = "none"; $("paso-agotado").style.display = "block"; }
 }
 async function refrescar(){
